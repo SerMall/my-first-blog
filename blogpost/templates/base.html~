@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="blogpost">
+  <head>
+   
+    <script src="angular-django-rest-resource.js"></script>
+    <script src="blogpost.js"></script>
+
+  </head>
+  <body>
+     <input ng-model="name">
+     <p>Hello {{name}}!</p>
+
+    <h2>JavaScript-проекты http://angular-doc.herokuapp.com</h2>
+
+    
+    <div ng-controller="BlogpostCtrl"></div>
+    <div ng-view></div>
+
+    <h1>ПРИВІТ 1</h1>
+    {% block content %}
+	
+    {% endblock content %}
+    {% block extra_javascript %}
+        <script src="{{ STATIC_URL }}/javascripts/mysite35.js"></script>
+    {% endblock extra_javascript %}
+  </body>
+</html>

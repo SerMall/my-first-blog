@@ -1,0 +1,114 @@
+from django.shortcuts import render
+
+# Create your views here.
+
+#from django.http import HttpResponse		# 1 варіант
+
+#def index(request):
+#    return HttpResponse("Hello, world. You're at the poll index.")
+						# кінець 1 варіант
+ 
+from django.template import Context, loader	# 2 варіант
+#from polls.models import Poll
+#from django.http import HttpResponse
+from django.template import RequestContext
+#from django.shortcuts import render_to_response
+#from django.http import Http404
+from django.shortcuts import render_to_response, get_object_or_404
+
+# 	з http://djbook.ru/rel1.4/intro/tutorial04.html
+#	додаємо...міняємо
+from django.http import HttpResponseRedirect, HttpResponse
+from django.core.urlresolvers import reverse
+from polls.models import Choice, Poll
+
+"""
+def index(request):
+    latest_poll_list = Poll.objects.all().order_by('-pub_date')[:5]
+    t = loader.get_template('polls/index.html')
+    c = Context({
+        'latest_poll_list': latest_poll_list,
+    })
+    return HttpResponse(t.render(c))
+						# кінець 2 варіант
+"""
+
+						# 3 варіант
+"""
+def index(request):
+    latest_poll_list = Poll.objects.all().order_by('-pub_date')[:5]
+    return render_to_response('polls/index.html', {'latest_poll_list': latest_poll_list})
+"""
+						# кінець 3 варіант
+
+"""
+#def detail(request, poll_id):			# 1 варіант
+#    return HttpResponse("You're looking at poll %s." % poll_id)
+
+
+def detail(request, poll_id):			# 2 варіант
+    try:
+        p = Poll.objects.get(pk=poll_id)
+    except Poll.DoesNotExist:
+        raise Http404
+    return render_to_response('polls/detail.html', {'poll': p})
+"""
+
+###	http://djbook.ru/rel1.4/intro/tutorial04.html
+"""
+def detail(request, poll_id):
+    p = get_object_or_404(Poll, pk=poll_id)
+    return render_to_response('polls/detail.html', {'poll': p},
+                               context_instance=RequestContext(request))
+"""
+###
+
+#	====================================================
+# 	з http://djbook.ru/rel1.4/intro/tutorial04.html
+#	додаємо...міняємо
+
+"""
+def results(request, poll_id):
+    return HttpResponse("You're looking at the results of poll %s." % poll_id)
+"""
+"""
+def results(request, poll_id):
+    p = get_object_or_404(Poll, pk=poll_id)
+    return render_to_response('polls/results.html', {'poll': p})
+"""
+#	======================================================
+
+
+
+
+#	====================================================
+# 	з http://djbook.ru/rel1.4/intro/tutorial04.html
+#	додаємо...міняємо
+"""
+def vote(request, poll_id):
+    return HttpResponse("You're voting on poll %s." % poll_id)
+"""
+
+def vote(request, poll_id):
+    p = get_object_or_404(Poll, pk=poll_id)
+    try:
+        selected_choice = p.choice_set.get(pk=request.POST['choice'])
+    except (KeyError, Choice.DoesNotExist):
+        # Redisplay the poll voting form.
+        return render_to_response('polls/detail.html', {
+            'poll': p,
+            'error_message': "You didn't select a choice.",
+        }, context_instance=RequestContext(request))
+    else:
+        selected_choice.votes += 1
+        selected_choice.save()
+        # Always return an HttpResponseRedirect after successfully dealing
+        # with POST data. This prevents data from being posted twice if a
+        # user hits the Back button.
+        #return HttpResponseRedirect(reverse('polls.views.results', args=(p.id,)))
+        return HttpResponseRedirect(reverse('poll_results', args=(p.id,)))
+    
+#	======================================================
+
+
+
