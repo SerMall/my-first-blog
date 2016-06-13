@@ -37,7 +37,8 @@ from django.conf.urls import patterns, include, url
 from django.views.generic import DetailView, ListView
 from polls.models import Poll
 
-urlpatterns = patterns('',
+#urlpatterns = patterns('',
+urlpatterns = [
     url(r'^$',
         ListView.as_view(
             queryset=Poll.objects.order_by('-pub_date')[:5],
@@ -53,7 +54,8 @@ urlpatterns = patterns('',
             template_name='polls/results.html'),
         name='poll_results'),
     url(r'^(?P<poll_id>\d+)/vote/$', 'polls.views.vote'),
-)
+]
+#)
 
 #	Теперь вы можете удалить функции index(), detail() и results() из polls/views.py. 
 #	Они нам больше не нужны.

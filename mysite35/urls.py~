@@ -16,6 +16,17 @@ Including another URLconf
 
 from django.conf.urls import patterns, include, url
 
+from django.views.generic import TemplateView
+"""
+urlpatterns = patterns('',
+    url(r'^$', TemplateView.as_view(template_name='index.html'), name='index' ),
+)
+"""
+urlpatterns = [
+    url(r'^$', TemplateView.as_view(template_name='index.html'), name='index' ),
+]
+
+
 #	Приклад з http://djbook.ru/rel1.4/intro/tutorial03.html
 #	"Упрощаем конфигурацию URL-ов"
 
@@ -27,30 +38,40 @@ from django.conf.urls import patterns, include, url
 
 from django.contrib import admin
 admin.autodiscover()
-
-urlpatterns = patterns('',
+"""
+urlpatterns += patterns('',
+#urlpatterns = patterns('',
     url(r'^polls/', include('polls.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
-
+"""
+urlpatterns += [
+    url(r'^polls/', include('polls.urls')),
+    url(r'^admin/', include(admin.site.urls)),
+]
 
 #	rest1
 #	Django REST
 #	http://www.django-rest-framework.org/tutorial/quickstart/
 #	"URL"
-
+"""
 urlpatterns += patterns('',
     url(r'^rest1/', include('rest1.urls')),
 )
-
+"""
+urlpatterns += [
+    url(r'^rest1/', include('rest1.urls')),
+]
 
 #	blogpost
 #	DjangoREST AngularJS
 #	http://www.azoft.ru/blog/django-rest-framework/
 
-urlpatterns += patterns('',
-    url(r'^blogpost/', include('blogpost.urls')),
-    url(r'^', blogpost.views.RootView.as_view()),
-)
+#urlpatterns += patterns('',
+#    url(r'^blogpost/', include('blogpost.urls')),
+#)
 
+urlpatterns += [
+    url(r'^blogpost ', include('blogpost.urls')),
+]
 

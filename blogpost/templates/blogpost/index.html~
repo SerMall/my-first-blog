@@ -1,11 +1,133 @@
-{% extends "base.html" %}
-{% load i18n %}
-{% block content %}
-<div class="container content" ng-app="BlogpostApp">
-    <div ui-view >Loading...</div>
+
+{% load staticfiles %}
+
+<!doctype html>
+<html ng-app="blogpostApp">
+  <head>
+    <meta charset="utf-8">   
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>
+
+  </head>
+  <body>
+    <div>
+     <h2>Posts</h2>
+    <div ng-controller="BlogpostCtrl" >   
+	<div ng-repeat="blog in blogposts">	  
+          <a href="#/blogposts/{% verbatim %}{{blog.id}}{% endverbatim %}" >{% verbatim %}{{blog.title}}{% endverbatim %}</a>	  
+        </div>
+   </div>
+<!---        <a href="#/blogposts">Posts</a></br>	--->
+	</br></br></br>
+        <a href="#/new/">New Post</a>
+    
+      </br>
+    </div>
+
+    <div>
+      <ng-view></ng-view>
+    </div>  
+
+
+<!--
+<div ng-controller="BlogpostCtrl" > 
+
+<div ng-controller="NewpostCtrl" >
+  <div class="container"  >
+    <h1 ng-show='newblogs.length'>Blogposts</h1>
+    <table class="table table-striped" ng-show='newblogs.length'>
+      <thead>
+	<th>Title</th>
+      </thead>
+      <tbody>
+      <tr ng-repeat="blogpost in blogposts">
+	<td ng-click="activeBlogpost(newblog)">
+	  <input id="title" ng-model="newblogpost.title" required placeholder= "" />
+	  {% verbatim %}{{blogpost.title}}{% endverbatim %}
+	</td>
+	<td><button class="btn btn-danger" ng-click="save(newblog)">Save</button> </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-{% endblock content %}
-{% block extra_javascript %}
-<!---	<script src="{{ STATIC_URL }}/javascript/app.js"></script>	--->
-<script src="{{ STATIC_URL }}/javascript/app.js"></script>
-{% endblock extra_javascript %}
+
+</div>
+
+
+
+</br></br></br></br>
+--->
+
+<!---
+    <div ng-controller="BlogpostCtrl" >    
+
+    <div ng-repeat="blogpost in blogposts">
+
+        <h3>{% verbatim %}{{blogpost.title}}{% endverbatim %}</h3>
+
+	<p>{% verbatim %}{{blogpost.content}}{% endverbatim %}</p>
+      
+    </div>
+</div>
+
+
+<div ng-controller="NewpostCtrl" > 
+  <h3>NEW POST</h3>
+  <h3>{% verbatim %}{{blog}}{% endverbatim %}</h3>
+  <form name="newblogpostForm" >
+    {% csrf_token %}
+    <fieldset>
+      <p><label for="title">Title</label>
+        <input ng-model="newblogpost.title" required /></p>
+      <p><label for="content">Content</label>
+        <textarea type="text" ng-model="newblogpost.content" required ></textarea>
+
+    </fieldset>
+
+    <button class="btn btn-default" type="submit" ng-click="savenew(newblogpost)">Save</button>
+  </form>
+  <p>newblogpost.title = {% verbatim %}{{newblogpost.title}}{% endverbatim %}</p>
+  <p>newblogpost.content = {% verbatim %}{{newblogpost.content}}{% endverbatim %}</p>
+  <p>newblogpost =  {% verbatim %}{{newblogpost}}{% endverbatim %}</p>
+
+
+<div>newblog:</div>
+  <p>newblog1 ={% verbatim %}{{newblog1}}{% endverbatim %}</p>
+  <p>newblog2 ={% verbatim %}{{newblog2}}{% endverbatim %}</p>
+  <p>newblog3 = {% verbatim %}{{newblog}}{% endverbatim %}</p>
+  <p>newblogs = {% verbatim %}{{newblogs}}{% endverbatim %}</p>
+  
+  
+
+</div>  
+  
+
+--->
+
+
+ 
+ 
+
+<script src="{% static 'app/blogpost/app.js' %}"></script>
+<script src="{% static 'app/blogpost/controllers.js' %}"></script>
+<script src="{% static 'app/blogpost/newPostController.js' %}"></script>
+<script src="{% static 'app/blogpost/services.js' %}"></script>
+
+<script src="{% static 'libs/angular-1.5.5/angular-route.min.js' %}"></script>
+<script src="{% static 'libs/angular-1.5.5/angular-resource.js' %}"></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

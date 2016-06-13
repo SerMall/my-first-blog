@@ -1,41 +1,23 @@
 from django.core.urlresolvers import reverse  
-#from djangorestframework.resources import ModelResource 
-#from rest_framework import ModelResource 
 from rest_framework import serializers 
 from blogpost.models import Blogpost, Comment 
-#from blogpost.models import User, Blogpost, Comment 
-  
-"""
-class UserSerializer(serializers.ModelSerializer):
-#class UserSerializer(serializers.HyperlinkedModelSerializer):
-    #blogposts = serializers.HyperlinkedIdentityField('blogposts', view_name='userblogpost-list', lookup_field='username')
 
-    class Meta:
-        model = User
-        fields = ('id', 'username', 'first_name', 'last_name', 'blogposts', )
-"""
-  
-#class BlogpostSerializer(serializers.ModelSerializer): 
 class BlogpostSerializer(serializers.HyperlinkedModelSerializer): 
     comments = serializers.HyperlinkedModelSerializer(many=True)
   
     class Meta:
         model = Blogpost  
-        fields = ('created', 'title', 'content', 'url', 'comments',) 
-        #fields = ('created', 'title', 'content',) 
+        fields = ('id', 'created', 'title', 'content', 'url', 'comments',) 
         ordering = ('-created',)  #
         
-
-
     def comments(self, instance):  #
         return reverse('comments', kwargs={'blogpost':instance.id})  #
 
-#class CommentSerializer(serializers.ModelSerializer):  
+ 
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment  
-        fields = ('created', 'comment', 'url', 'blogpost',)
-        #fields = ('created', 'comment', 'blogpost',)  
+        fields = ('id', 'created', 'comment', 'url', 'blogpost',)
         ordering = ('-created',)  #
   
     def blogpost(self, instance):  #

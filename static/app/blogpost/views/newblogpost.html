@@ -1,0 +1,19 @@
+
+<div>
+  <h3>NEW POST</h3>
+  
+  <form>        
+      <p><label for="title">Title</label>
+        <input name="title" type="text" ng-model="blogpost.title" required /></p>
+      <p><label for="content">Content</label>
+        <textarea name="content" type="text"  ng-model="blogpost.content" required ></textarea></p>    
+  </form>
+
+  <button  type="submit" ng-click="save(blogpost)" class="btn btn-primary">Save</button>
+<!---  
+{{blogpostnew1}}
+{{blogpost.title}}
+{{blogpost.content}}
+--->
+</div>  
+  

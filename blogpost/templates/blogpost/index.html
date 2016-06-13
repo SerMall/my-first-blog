@@ -1,11 +1,51 @@
-{% extends "base.html" %}
-{% load i18n %}
-{% block content %}
-<div class="container content" ng-app="BlogpostApp">
-    <div ui-view >Loading...</div>
-</div>
-{% endblock content %}
-{% block extra_javascript %}
-<!---	<script src="{{ STATIC_URL }}/javascript/app.js"></script>	--->
-<script src="{{ STATIC_URL }}/javascripts/mysite35.js"></script>
-{% endblock extra_javascript %}
+
+{% load staticfiles %}
+
+<!doctype html>
+<html ng-app="blogpostApp">
+  <head>
+    <meta charset="utf-8">   
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>
+
+  </head>
+  <body>
+    <div>
+      <h2>Posts</h2>
+      <div ng-controller="BlogpostCtrl" >   
+	<div ng-repeat="blog in blogposts">	  
+          <a href="#/blogposts/{% verbatim %}{{blog.id}}{% endverbatim %}" >{% verbatim %}{{blog.title}}{% endverbatim %}</a>	  
+        </div>
+      </div>
+
+      </br></br></br>
+      <a href="#/new/">New Post</a>
+      </br>
+    </div>
+
+    <div>
+      <ng-view></ng-view>
+    </div>  
+
+    <script src="{% static 'app/blogpost/app.js' %}"></script>
+    <script src="{% static 'app/blogpost/controllers.js' %}"></script>
+    <script src="{% static 'app/blogpost/newPostController.js' %}"></script>
+    <script src="{% static 'app/blogpost/services.js' %}"></script>
+
+    <script src="{% static 'libs/angular-1.5.5/angular-route.min.js' %}"></script>
+    <script src="{% static 'libs/angular-1.5.5/angular-resource.js' %}"></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

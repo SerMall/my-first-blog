@@ -1,0 +1,18 @@
+
+<!---    <div ng-controller="BlogpostIdCtrl" >	--->
+    <div>
+         <h2>Posts Id</h2>
+         <p>{{blogpostId.title}}</p>	
+	 <p>{{blogpostId.content}}</p>	
+
+	<form >
+	  <p><label>{{ 'Title'}} </label>
+	     <input name="textfield" type="text" ng-model="blogpostId.title"   required ></p>
+          <p><label>{{ 'Content'}} </label>
+	     <textarea name="textarea" type="text" ng-model="blogpostId.content"   required ></textarea></p>
+        </form>
+     
+	<button type="submit"  ng-click="update(blogpostId)" class="btn btn-primary">Update</button>   
+	<button type="submit"  ng-click="delete(blogpostId)" class="btn btn-primary">Delete</button>
+
+    </div>

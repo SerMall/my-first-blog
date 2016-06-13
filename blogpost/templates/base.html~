@@ -1,27 +1,29 @@
+
+
 <!DOCTYPE html>
-<html ng-app="blogpost">
+<html ng-app>
   <head>
-   
-    <script src="angular-django-rest-resource.js"></script>
-    <script src="blogpost.js"></script>
+    <meta charset="utf-8">   
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-resource.js"></script>
 
   </head>
   <body>
      <input ng-model="name">
-     <p>Hello {{name}}!</p>
 
-    <h2>JavaScript-проекты http://angular-doc.herokuapp.com</h2>
+     <p>Hello {% verbatim %}{{name}}{% endverbatim %}!</p>
 
-    
-    <div ng-controller="BlogpostCtrl"></div>
-    <div ng-view></div>
+    <h2>/home/serhmal/mysite35/blogpost/templates/base.html</h2>
 
-    <h1>ПРИВІТ 1</h1>
+
+
+    <h1>ПРИВІТ base.html</h1>
     {% block content %}
-	
+
     {% endblock content %}
     {% block extra_javascript %}
-        <script src="{{ STATIC_URL }}/javascripts/mysite35.js"></script>
+
     {% endblock extra_javascript %}
+ 
   </body>
 </html>

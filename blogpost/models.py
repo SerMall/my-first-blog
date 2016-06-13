@@ -4,20 +4,12 @@
 
 from django.db import models  
 
-#from django.contrib.auth.models import AbstractUser
-
-
-#class User(AbstractUser):
-#    followers = models.ManyToManyField('self', related_name='follower', symmetrical=False)
-  
 class Blogpost(models.Model): 
-    #author = models.ForeignKey(User, related_name='blogpost') 
     title = models.CharField(max_length=128)  
     content = models.TextField()  
     created = models.DateTimeField(auto_now_add=True)  
   
 class Comment(models.Model):  
     blogpost = models.ForeignKey(Blogpost, editable=True, related_name='comments')
-    #blogpost = models.ForeignKey(Blogpost, related_name='comments')  
     comment = models.TextField()  
     created = models.DateTimeField(auto_now_add=True)  

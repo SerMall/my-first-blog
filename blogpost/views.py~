@@ -9,23 +9,25 @@ from blogpost.serializers import BlogPostSerializer, CommentSerializer
 
 
 class BlogPostViewSet(APIView):
-    
+
 #    API endpoint that allows users to be viewed or edited.
 #    API кінцевих точок, що дозволяє користувачам переглядати або редагувати
-    
+
     queryset = BlogPost.objects.all().order_by('-date_joined')
     serializer_class = BlogPostSerializer
 
 
 class CommentViewSet(APIView):
-    
+
 #    API endpoint that allows groups to be viewed or edited.
 #    API кінцевих точок, що дозволяє групам переглядати або редагувати.
-    
+
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 """
 #	http://www.django-rest-framework.org/api-guide/viewsets/#modelviewset:
+
+
 #from django.contrib.auth.models import User
 from blogpost.models import Blogpost, Comment
 #from blogpost.models import User, Blogpost, Comment
@@ -37,10 +39,15 @@ from blogpost.serializers import BlogpostSerializer, CommentSerializer
 
 from rest_framework import viewsets
 #from rest_framework.response import Response
-
+"""
 from django.views.generic.base import TemplateView
 class RootView(TemplateView):
-    template_name = "templates/base.html"
+    template_name = "blogpost/index.html"
+"""
+
+
+#from rest_framework.views import APIView
+#from rest_framework import authentication, permissions
 
 
 """
@@ -48,15 +55,27 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
 """
+#from django.views.decorators.csrf import ensure_csrf_cookie
+#@ensure_csrf_cookie
+from rest_framework import  permissions
+##from rest_framework.permissions import AllowAny
+##permission_classes = restapi_permission_classes = (AllowAny,)
 
-
-
+###class BlogpostViewSet(viewsets.ModelViewSet):
 class BlogpostViewSet(viewsets.ModelViewSet):
+    #authentication_classes = (authentication.TokenAuthentication,)
+
+    #model = Blogpost
     serializer_class = BlogpostSerializer
     queryset = Blogpost.objects.all()
+    #permission_classes = restapi_permission_classes
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    
     """
     A simple ViewSet for listing or retrieving users.
-    
+
     def list(self, request):
         queryset = Blogpost.objects.all()
         serializer = BlogpostSerializer(queryset, many=True)
@@ -70,12 +89,15 @@ class BlogpostViewSet(viewsets.ModelViewSet):
 """
 
 class CommentViewSet(viewsets.ModelViewSet):
+    #model = Comment
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
-
+    permission_classes = [
+        permissions.AllowAny
+    ]
     """
     A simple ViewSet for listing or retrieving users.
-    
+
     def list(self, request):
         queryset = Comment.objects.all()
         serializer = CommentSerializer(queryset, many=True)

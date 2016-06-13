@@ -17,11 +17,11 @@ class UserSerializer(serializers.ModelSerializer):
   
 #class BlogpostSerializer(serializers.ModelSerializer): 
 class BlogpostSerializer(serializers.HyperlinkedModelSerializer): 
-    #comments = serializers.StringRelatedField(many=True)
+    comments = serializers.HyperlinkedModelSerializer(many=True)
   
     class Meta:
         model = Blogpost  
-        fields = ('created', 'title', 'content', 'url', 'comments',) 
+        fields = ('id', 'created', 'title', 'content', 'url', 'comments',) 
         #fields = ('created', 'title', 'content',) 
         ordering = ('-created',)  #
         
@@ -31,10 +31,10 @@ class BlogpostSerializer(serializers.HyperlinkedModelSerializer):
         return reverse('comments', kwargs={'blogpost':instance.id})  #
 
 #class CommentSerializer(serializers.ModelSerializer):  
-class CommentSerializer(serializers.HyperlinkedModelSerializer):
+class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment  
-        fields = ('created', 'comment', 'url', 'blogpost',)
+        fields = ('id', 'created', 'comment', 'url', 'blogpost',)
         #fields = ('created', 'comment', 'blogpost',)  
         ordering = ('-created',)  #
   
